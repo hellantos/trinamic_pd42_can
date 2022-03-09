@@ -42,6 +42,7 @@ def generate_launch_description():
         parameters= [{
             "bus_config": os.path.join(path_to_test, ".." ,  "config" , "bus.yml"),
             "master_config": os.path.join(path_to_test, ".." , "config" , "master.dcf"),
+            "master_bin": os.path.join(path_to_test, ".." , "config" , "master.bin"),
             "can_interface_name": "can0",
             "enable_lazy_loading": False
             }
