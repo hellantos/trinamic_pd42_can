@@ -7,6 +7,7 @@ trinamic_pd42:
   dcf: "TMCM-1270.eds"
   driver: "ros2_canopen::MotionControllerDriver"
   package: "canopen_402_driver"
+  enable_lazy_loading: false
   sdo: # SDO executed during config
   - {index: 0x6081, sub_index: 0, value: 500000} # Set velocity
   - {index: 0x6083, sub_index: 0, value: 1000000} # Set acceleration
