@@ -29,20 +29,20 @@ import lifecycle_msgs.msg
 
 
 def generate_launch_description():
-    path_to_test = os.path.dirname(__file__)
+    path_file = os.path.dirname(__file__)
 
     ld = launch.LaunchDescription()
 
     master_node = launch_ros.actions.Node(
         name="device_manager_node",
         namespace="", 
-        package="ros2_canopen_core", 
+        package="canopen_core", 
         output="screen", 
         executable="device_manager_node",
         parameters= [{
-            "bus_config": os.path.join(path_to_test, ".." ,  "config" , "bus.yml"),
-            "master_config": os.path.join(path_to_test, ".." , "config" , "master.dcf"),
-            "master_bin": os.path.join(path_to_test, ".." , "config" , "master.bin"),
+            "bus_config": os.path.join(path_file, ".." ,  "config" , "bus.yml"),
+            "master_config": os.path.join(path_file, ".." , "config" , "master.dcf"),
+            "master_bin": os.path.join(path_file, ".." , "config" , "master.bin"),
             "can_interface_name": "can0",
             "enable_lazy_loading": False
             }
