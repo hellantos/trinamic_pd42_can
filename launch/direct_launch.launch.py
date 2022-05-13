@@ -30,7 +30,7 @@ import lifecycle_msgs.msg
 
 def generate_launch_description():
     path_file = os.path.dirname(__file__)
-
+    os.chdir(os.path.join(path_file, ".." ,  "config"))
     ld = launch.LaunchDescription()
 
     master_node = launch_ros.actions.Node(
