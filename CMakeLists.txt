@@ -15,7 +15,7 @@ dcfgen(${CMAKE_CURRENT_SOURCE_DIR}/config/ bus.yml ${CMAKE_BINARY_DIR}/config/)
 # install launch file
 install(DIRECTORY
   launch/
-  DESTINATION share/${PROJECT_NAME}/launch/
+  DESTINATION share/${PROJECT_NAME}
 )
 
 # install configuration files
