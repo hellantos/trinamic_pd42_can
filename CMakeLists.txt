@@ -10,22 +10,12 @@ find_package(ament_cmake REQUIRED)
 find_package(canopen REQUIRED)
 find_package(lely_core_libraries REQUIRED)
 
-dcfgen(${CMAKE_CURRENT_SOURCE_DIR}/config/ bus.yml ${CMAKE_BINARY_DIR}/config/)
+generate_dcf(single-pd42)
 
 # install launch file
 install(DIRECTORY
   launch/
   DESTINATION share/${PROJECT_NAME}
-)
-
-# install configuration files
-install(DIRECTORY
-  config/
-  DESTINATION share/${PROJECT_NAME}/config/
-)
-install(
-  DIRECTORY ${CMAKE_BINARY_DIR}/config/
-  DESTINATION share/${PROJECT_NAME}/config/
 )
 
 if(BUILD_TESTING)
