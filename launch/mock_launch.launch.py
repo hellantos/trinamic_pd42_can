@@ -26,6 +26,25 @@ from launch import LaunchDescription
 
 def generate_launch_description():
     ld = LaunchDescription()
+    slave_eds_path = os.path.join(
+                    get_package_share_directory("trinamic_pd42_can"), "config", "single-pd42", "TMCM-1270.eds"
+                )
+
+    slave_node_1 = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            [
+                os.path.join(
+                    get_package_share_directory("canopen_mock_slave"), "launch"
+                ),
+                "/cia402_slave.launch.py",
+            ]
+        ),
+        launch_arguments={
+            "node_id": "1", 
+            "node_name": "pd42_slave",
+            "slave_config": slave_eds_path,
+            }.items(),
+    )
 
     device_container = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -53,10 +72,11 @@ def generate_launch_description():
                 "single-pd42",
                 "bus.yml",
             ),
-            "can_interface_name": "can0",
+            "can_interface_name": "vcan0",
         }.items(),
     )
 
     ld.add_action(device_container)
+    ld.add_action(slave_node_1)
 
     return ld

@@ -2044,7 +2044,7 @@ ParameterName=Min Software Position Limit
 ObjectType=0x07
 DataType=0x0004
 AccessType=rw
-DefaultValue=0x80000001
+DefaultValue=-2147483648 
 PDOMapping=0
 
 [607Dsub2]
@@ -2052,7 +2052,7 @@ ParameterName=Max Software Position Limit
 ObjectType=0x07
 DataType=0x0004
 AccessType=rw
-DefaultValue=0x7FFFFFFF
+DefaultValue=2147483647
 PDOMapping=0
 
 [6081]
@@ -2203,7 +2203,7 @@ ParameterName=timeIndex
 ObjectType=0x07
 DataType=0x0002
 AccessType=rw
-DefaultValue=0xFD
+DefaultValue=-2
 PDOMapping=0
 
 [60F2]
