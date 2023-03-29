@@ -2044,7 +2044,7 @@ ParameterName=Min Software Position Limit
 ObjectType=0x07
 DataType=0x0004
 AccessType=rw
-DefaultValue=-2147483648 
+DefaultValue=-2147483648
 PDOMapping=0
 
 [607Dsub2]
@@ -2244,4 +2244,3 @@ DataType=0x0007
 AccessType=ro
 DefaultValue=0x00040192
 PDOMapping=0
-

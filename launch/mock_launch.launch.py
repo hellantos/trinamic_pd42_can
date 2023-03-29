@@ -14,8 +14,9 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))  # noqa
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'launch'))  # noqa
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))  # noqa
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "launch"))  # noqa
 
 import launch
 from launch.actions import IncludeLaunchDescription
@@ -27,26 +28,24 @@ from launch import LaunchDescription
 def generate_launch_description():
     ld = LaunchDescription()
     slave_eds_path = os.path.join(
-                    get_package_share_directory("trinamic_pd42_can"), "config", "single-pd42", "TMCM-1270.eds"
-                )
+        get_package_share_directory("trinamic_pd42_can"), "config", "single-pd42", "TMCM-1270.eds"
+    )
 
     slave_node_1 = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
-                os.path.join(
-                    get_package_share_directory("canopen_fake_slaves"), "launch"
-                ),
+                os.path.join(get_package_share_directory("canopen_fake_slaves"), "launch"),
                 "/cia402_slave.launch.py",
             ]
         ),
         launch_arguments={
-            "node_id": "1", 
+            "node_id": "1",
             "node_name": "pd42_slave",
             "slave_config": slave_eds_path,
-            }.items(),
+        }.items(),
     )
     master_bin_path = os.path.join(
-        get_package_share_directory("trinamic_pd42_can"), 
+        get_package_share_directory("trinamic_pd42_can"),
         "config",
         "single-pd42",
         "master.bin",
