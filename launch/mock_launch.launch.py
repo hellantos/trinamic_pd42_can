@@ -34,7 +34,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             [
                 os.path.join(
-                    get_package_share_directory("canopen_mock_slave"), "launch"
+                    get_package_share_directory("canopen_fake_slaves"), "launch"
                 ),
                 "/cia402_slave.launch.py",
             ]
@@ -45,6 +45,14 @@ def generate_launch_description():
             "slave_config": slave_eds_path,
             }.items(),
     )
+    master_bin_path = os.path.join(
+        get_package_share_directory("trinamic_pd42_can"), 
+        "config",
+        "single-pd42",
+        "master.bin",
+    )
+    if not os.path.exists(master_bin_path):
+        master_bin_path = ""
 
     device_container = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -60,12 +68,7 @@ def generate_launch_description():
                 "single-pd42",
                 "master.dcf",
             ),
-            "master_bin": os.path.join(
-                get_package_share_directory("trinamic_pd42_can"),
-                "config",
-                "single-pd42",
-                "master.bin",
-            ),
+            "master_bin": master_bin_path,
             "bus_config": os.path.join(
                 get_package_share_directory("trinamic_pd42_can"),
                 "config",
@@ -76,7 +79,7 @@ def generate_launch_description():
         }.items(),
     )
 
-    ld.add_action(device_container)
+    # ld.add_action(device_container)
     ld.add_action(slave_node_1)
 
     return ld
