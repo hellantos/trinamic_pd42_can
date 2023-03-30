@@ -78,7 +78,7 @@ def generate_launch_description():
         }.items(),
     )
 
-    ld.add_action(device_container)
+    # ld.add_action(device_container)
     ld.add_action(slave_node_1)
 
     return ld
