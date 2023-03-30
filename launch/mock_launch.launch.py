@@ -14,8 +14,9 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))  # noqa
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'launch'))  # noqa
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))  # noqa
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "launch"))  # noqa
 
 import launch
 from launch.actions import IncludeLaunchDescription
@@ -27,24 +28,30 @@ from launch import LaunchDescription
 def generate_launch_description():
     ld = LaunchDescription()
     slave_eds_path = os.path.join(
-                    get_package_share_directory("trinamic_pd42_can"), "config", "single-pd42", "TMCM-1270.eds"
-                )
+        get_package_share_directory("trinamic_pd42_can"), "config", "single-pd42", "TMCM-1270.eds"
+    )
 
     slave_node_1 = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
-                os.path.join(
-                    get_package_share_directory("canopen_mock_slave"), "launch"
-                ),
+                os.path.join(get_package_share_directory("canopen_fake_slaves"), "launch"),
                 "/cia402_slave.launch.py",
             ]
         ),
         launch_arguments={
-            "node_id": "1", 
+            "node_id": "1",
             "node_name": "pd42_slave",
             "slave_config": slave_eds_path,
-            }.items(),
+        }.items(),
     )
+    master_bin_path = os.path.join(
+        get_package_share_directory("trinamic_pd42_can"),
+        "config",
+        "single-pd42",
+        "master.bin",
+    )
+    if not os.path.exists(master_bin_path):
+        master_bin_path = ""
 
     device_container = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -60,12 +67,7 @@ def generate_launch_description():
                 "single-pd42",
                 "master.dcf",
             ),
-            "master_bin": os.path.join(
-                get_package_share_directory("trinamic_pd42_can"),
-                "config",
-                "single-pd42",
-                "master.bin",
-            ),
+            "master_bin": master_bin_path,
             "bus_config": os.path.join(
                 get_package_share_directory("trinamic_pd42_can"),
                 "config",
@@ -76,7 +78,7 @@ def generate_launch_description():
         }.items(),
     )
 
-    ld.add_action(device_container)
+    # ld.add_action(device_container)
     ld.add_action(slave_node_1)
 
     return ld

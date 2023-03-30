@@ -14,8 +14,9 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))  # noqa
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'launch'))  # noqa
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))  # noqa
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "launch"))  # noqa
 
 import launch
 from launch.actions import IncludeLaunchDescription
