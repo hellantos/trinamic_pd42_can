@@ -13,7 +13,8 @@ find_package(canopen REQUIRED)
 find_package(lely_core_libraries REQUIRED)
 find_package(canopen_interfaces REQUIRED)
 
-generate_dcf(single-pd42)
+# generate_dcf(single-pd42)
+cogen_dcf(single-pd42)
 
 add_executable(position_tick_client src/position_tick_motor.cpp)
 ament_target_dependencies(position_tick_client
