@@ -7,14 +7,13 @@ master:
   package: "canopen_master_driver"
   sync_period: 20000
 
-trinamic_pd42:
-  node_id: 1
+
+defaults:
   dcf: "TMCM-1270.eds"
-  # dcf_path: "install/canopen_tests/share/canopen_tests/config/cia402"
   driver: "ros2_canopen::Cia402Driver"
   package: "canopen_402_driver"
-  period: 20
-  enable_lazy_load: false
+  polling: false
+  heartbeat_producer: 1000 # Heartbeat every 1000 ms
   sdo: # SDO executed during config
     - {index: 0x6081, sub_index: 0, value: 500000} # Set velocity
     - {index: 0x6083, sub_index: 0, value: 1000000} # Set acceleration
@@ -24,5 +23,33 @@ trinamic_pd42:
     - {index: 0x60C2, sub_index: 1, value: 50} # Set interpolation time for cyclic modes to 50 ms
     - {index: 0x60C2, sub_index: 2, value: -3} # Set base 10-3s
 
+nodes:
+  trinamic_pd42:
+    node_id: 1
 
-  heartbeat_producer: 1000 # Heartbeat every 1000 ms
+    
+# options:
+#   dcf_path: "@BUS_CONFIG_PATH@"
+
+# master:
+#   node_id: 2
+#   driver: "ros2_canopen::MasterDriver"
+#   package: "canopen_master_driver"
+#   sync_period: 20000
+
+# trinamic_pd42:
+#   node_id: 1
+#   dcf: "TMCM-1270.eds"
+#   # dcf_path: "install/canopen_tests/share/canopen_tests/config/cia402"
+#   driver: "ros2_canopen::Cia402Driver"
+#   package: "canopen_402_driver"
+#   polling: false
+#   heartbeat_producer: 1000 # Heartbeat every 1000 ms
+#   sdo: # SDO executed during config
+#     - {index: 0x6081, sub_index: 0, value: 500000} # Set velocity
+#     - {index: 0x6083, sub_index: 0, value: 1000000} # Set acceleration
+#     - {index: 0x6083, sub_index: 0, value: 1000000} # Set deceleration
+#     - {index: 0x6085, sub_index: 0, value: 1000000} # Set quickstop deceleration
+#     - {index: 0x6098, sub_index: 0, value: 35} # Set default homing mode to 35
+#     - {index: 0x60C2, sub_index: 1, value: 50} # Set interpolation time for cyclic modes to 50 ms
+#     - {index: 0x60C2, sub_index: 2, value: -3} # Set base 10-3s

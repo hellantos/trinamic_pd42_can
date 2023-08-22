@@ -15,13 +15,13 @@ int main(int argc, char * argv[])
   RCLCPP_INFO(node->get_logger(), "Position Tick Motor Node Started");
   rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr init_client =
     node->create_client<std_srvs::srv::Trigger>("/trinamic_pd42/init");
-  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr config_client =
-    node->create_client<std_srvs::srv::Trigger>("/trinamic_pd42/position_mode");
+  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr mode_client =
+    node->create_client<std_srvs::srv::Trigger>("/trinamic_pd42/cyclic_position_mode");
   rclcpp::Client<canopen_interfaces::srv::COTargetDouble>::SharedPtr target_client =
     node->create_client<canopen_interfaces::srv::COTargetDouble>("/trinamic_pd42/target");
 
   while (!init_client->wait_for_service(std::chrono::seconds(1)) &&
-         !config_client->wait_for_service(std::chrono::seconds(1)) &&
+         !mode_client->wait_for_service(std::chrono::seconds(1)) &&
          !target_client->wait_for_service(std::chrono::seconds(1)))
   {
     if (!rclcpp::ok())
@@ -43,7 +43,7 @@ int main(int argc, char * argv[])
     RCLCPP_ERROR(node->get_logger(), "Failed to call init service");
   }
 
-  result = config_client->async_send_request(trigger_req);
+  result = mode_client->async_send_request(trigger_req);
   if (rclcpp::spin_until_future_complete(node, result) == rclcpp::FutureReturnCode::SUCCESS)
   {
     RCLCPP_INFO(node->get_logger(), "Config position mode service called successfully");
